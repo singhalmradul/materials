@@ -1,0 +1,707 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}[a4paper]
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{titlesec}
+\usepackage[hidelinks]{hyperref}
+\usepackage{makeidx}
+\usepackage{color}
+\usepackage{mathdots}
+\usepackage{sans}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{
+  language=Java,
+  frame=lines,                         % Use 'lines' for top and bottom lines only
+  aboveskip=1em,
+  belowskip=1em,
+  showstringspaces=false,
+  columns=fullflexible,
+  basicstyle=\ttfamily\small,
+  numbers=left,                        % Enable line numbers on the left
+  numberstyle=\tiny\color{gray},
+  numbersep=10pt,                      % Space between numbers and code
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{dkgreen}\itshape,
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=2,                           % 2 spaces is a more common tab size
+  escapeinside={(*@}{@*)},
+  captionpos=b,                        % Position caption below listing
+  morekeywords={var,record}           % Add Java-specific keywords if needed
+}
+
+% \linespread{1.1}
+
+\makeindex
+
+% Centered and bold section headings
+\titleformat{\section}[block]{\normalfont\Large\bfseries\filcenter}{}{0em}{}
+\titleformat{\subsection}[block]{\normalfont\large\bfseries}{}{0em}{}
+\titleformat{\subsubsection}[block]{\normalfont\normalsize\bfseries}{}{0em}{}
+
+\raggedright
+\title{Object Oriented Programming}
+\author{Mradul Singhal}
+% \date{\today}
+
+\begin{document}
+
+\maketitle
+\newpage
+
+\tableofcontents
+\newpage
+
+\section{Introduction}
+Object-Oriented Programming (OOP) organizes software design around data, or objects, rather than functions and logic. Here are the fundamental concepts of OOP:
+\begin{itemize}
+    \item \textbf{Classes:} Templates for creating objects, defining their structure and behavior.
+    \item \textbf{Objects:} Instances of classes that represent specific elements with attributes and behaviors.
+    \item \textbf{Encapsulation:} Hiding the internal state of an object and requiring all interaction to be performed through an object's methods.
+    \item \textbf{Abstraction:} Exposing only the necessary and relevant parts of an object to the outside world.
+    \item \textbf{Inheritance:} A mechanism for one class to inherit the properties and behavior of another class.
+    \item \textbf{Polymorphism:} The ability to present the same interface for differing underlying data types.
+\end{itemize}
+\newpage
+
+\section{Association, Aggregation \& Composition}
+\subsection{Association}
+\begin{itemize}
+    \item When an object have a relationship with another object
+    \item \textbf{Example:}
+          \begin{lstlisting}
+class Foo {
+    private Bar bar;
+};
+          \end{lstlisting}
+          \lstinline|Foo| uses \lstinline|Bar|
+    \item It may be \textit{one-to-one, one-to-many, many-to-one} or \textit{many-to-many} relationship
+\end{itemize}
+\subsection{Aggregation}
+\begin{itemize}
+    \item  A relationship where the child can exist independently of the parent.
+    \item \textbf{Example:}
+          \begin{lstlisting}
+class Foo {
+    private Bar bar;
+    Foo(Bar bar) {
+       this.bar = bar;
+    }
+}
+          \end{lstlisting}
+          When \lstinline|Foo| dies, \lstinline|Bar| may live on
+          \item It may be \textit{one-to-one, one-to-many, many-to-one} or \textit{many-to-many} relationship
+\end{itemize}
+\subsection{Composition}
+\begin{itemize}
+    \item An object owns another object and is responsible for that object's lifetime.
+    \item \textbf{Example:}
+          \begin{lstlisting}
+class Foo {
+    private Bar bar = new Bar();
+}
+          \end{lstlisting}
+          When \lstinline|Foo| dies, so does \lstinline|Bar|
+          \item It may be \textit{one-to-one} or \textit{one-to-many} relationship
+\end{itemize}
+\newpage
+\printindex
+\end{document}
+
+% \begin{LARGE}
+%       \begin{center}
+%             \textbf{Faculty of Engineering \& Technology} \\
+%             \textbf{Agra College, Agra} \\
+%             \vspace{1cm}
+%             \includegraphics[width=0.2\textwidth]{fet.png}
+%       \end{center}
+% \end{LARGE}
+% \section*{Certificate}
+% This is to certify that the project entited \textbf{HiV} is a bonafide work of \textbf{Keshav Sharma} and \textbf{Mradul Singhal} who carried out the project work under my supervision. The project work has been completed during the academic year 2023-2024 as a partial fulfillment of the requirements for the award of the degree of Bachelor of Technology in Computer Science \& Engineering of the Faculty of Engineering \& Technology, Agra College, Agra.\\
+% \vspace{5cm} \\
+% \textbf{Dr. Anurag Sharma} \hfill \textbf{Er. Rajpal Khainwar} \\
+% Head of the Department \hfill Assistant Professor\\
+% CSE Department \hfill CSE Department \\
+% \newpage
+
+% \section*{Acknowledgement}
+% We would like to thank all those who have contributed to the completion of the project and provided us with valuable suggestions for improvement. We are extremely grateful to \textbf{Dr. Anurag Sharma}, Head of the Department of Computer Science \& Engineering, for providing us with the best facilities and atmosphere for creative work, as well as for his guidance and encouragement. We would also like to thank our guide, \textbf{Er. Rajpal Khainwar}, for all the help and support extended to us. Additionally, we would like to express our gratitude to all the staff members of our college and friends who extended their cooperation during our project.
+% \vspace{5cm} \\
+% \textbf{Keshav Sharma (2000020100051)} \hfill \underbar{\hspace{4cm}} \\
+% \vspace{1mm} \\
+% \textbf{Mradul Singhal (2000020100060)} \hfill \underbar{\hspace{4cm}} \\
+% \newpage
+
+% \section*{Abstract}
+
+% \textbf{HiV}, or \textbf{high-five}, stands out in the social media landscape with its ethos of mindful engagement. This abstract delves into the platform's unique approach to social networking, which emphasizes intentional interaction over passive consumption.
+
+% Central to HiV is its dedication to reshaping the digital experience by prioritizing effective time management. The platform counters the relentless stream of content with features that encourage users to engage with a sense of purpose and awareness.
+
+% The narrative of HiV begins with its commitment to mindfulness in the digital space, inviting users to engage actively with content that resonates with their interests. This focus on mindfulness represents a significant shift in the value derived from online interactions.
+
+% Time management is a key aspect of HiV, addressing the common issue of digital distraction. The platform offers tools like the ``digital detox timer'' to help users navigate their online presence more meaningfully.\\
+% Examining these features reveals HiV's innovative strategies to enhance user experience. By setting personal screen time goals, users are encouraged to consider the quality of their digital engagements, leading to more intentional and fulfilling interactions.
+
+% In conclusion, this abstract introduces HiV as more than a social media platform; it's a catalyst for change in the digital world. It champions intentional engagement, mindfulness, and authentic relationships, signaling a shift towards a more meaningful social media experience.
+% \newpage
+
+% \tableofcontents
+% \newpage
+
+% \section{User Interface Design}
+% \subsection{Login Page}
+% \includegraphics[width=\textwidth]{ui/login.jpeg}
+% \subsection{Profile}
+% \includegraphics[width=\textwidth]{ui/profile.jpeg}
+% \subsection{Post Creation}
+% \includegraphics[width=\textwidth]{ui/create-post.jpeg}
+% \subsection{Post}
+% \includegraphics[width=\textwidth]{ui/like.jpeg}
+% \subsection{Edit Profile}
+% \includegraphics[width=\textwidth]{ui/edit-profile.jpeg}
+
+% \newpage
+
+% \section{System Architecture}
+% \subsection{Diagram}
+% \begin{center}
+%       \makebox[\textwidth]{\includegraphics[width=\paperwidth]{high-five.png}}
+% \end{center}
+
+% \subsection{Frontend Architecture}
+% \subsubsection{frontend}
+% \begin{itemize}
+%       \item The \textit{frontend} component is built using ReactJS, Redux Saga, and TypeScript. ReactJS is a popular JavaScript library for building user interfaces, Redux Saga is used for managing application state, and TypeScript is used for static typing.
+%       \item It is designed to be modular and scalable, allowing for easy updates and maintenance. It follows best practices for frontend development, including component-based architecture, state management, and data fetching.
+%       \item It is optimized for performance and user experience. It includes features like lazy loading, code splitting, and server-side rendering to improve load times and responsiveness.
+%       \item It is designed to be responsive and accessible, ensuring a consistent user experience across devices and screen sizes. It follows web standards and accessibility guidelines to provide an inclusive experience for all users.
+%       \item It is built with a focus on user experience and usability. It includes features like intuitive navigation, clear visual hierarchy, and interactive elements to enhance user engagement and satisfaction.
+%       \item It is designed to be secure and reliable. It follows best practices for frontend security, including data encryption, authentication, and authorization. It includes error handling and recovery mechanisms to ensure a seamless user experience.
+% \end{itemize}
+% \subsection{Backend Architecture}
+% \subsubsection{backend}
+% \begin{itemize}
+%       \item The \textit{backend} component is built following Microservice Architecture. It is responsible for the business logic of the application, including user authentication, post creation, comment creation, like creation, and follow creation.
+%       \item It is designed to be modular and scalable, allowing for easy updates and maintenance. It follows best practices for backend development, including microservices, RESTful APIs, and database interactions.
+%       \item It is optimized for performance and reliability. It includes features like caching, load balancing, and fault tolerance to improve response times and availability.
+%       \item It is designed to be secure and compliant. It follows best practices for backend security, including data encryption, access control, and audit logging. It includes monitoring and alerting mechanisms to ensure data integrity and compliance.
+%       \item It is built with a focus on interoperability and extensibility. It includes integration points for third-party services, data sources, and tools. It follows industry standards and protocols to facilitate seamless integration with other systems.
+%       \item It is designed to be resilient and fault-tolerant. It includes error handling, retry mechanisms, and fallback options to ensure service continuity and data consistency.
+% \end{itemize}
+% \subsubsection{reverse-proxy}
+% \begin{itemize}
+%       \item The \textit{reverse-proxy} component is built using Spring Cloud Gateway. It acts as a gateway for all incoming requests and routes them to the appropriate microservice based on the request URL.
+%       \item It is designed to be lightweight and efficient, ensuring minimal overhead and latency. It includes features like load balancing, routing, and filtering to optimize request handling and response times.
+%       \item It is optimized for performance and scalability. It includes caching, connection pooling, and request queuing to improve throughput and resource utilization.
+%       \item It is designed to be secure and reliable. It includes encryption, authentication, and authorization mechanisms to protect data and ensure service integrity. It includes monitoring and logging capabilities to detect and respond to security incidents.
+%       \item It is built with a focus on flexibility and extensibility. It includes configuration options, routing rules, and service discovery mechanisms to adapt to changing requirements and environments.
+%       \item It is designed to be resilient and fault-tolerant. It includes health checks, circuit breakers, and fallback options to ensure service continuity and availability.
+%       \item It is optimized for observability and monitoring. It includes metrics, logs, and tracing capabilities to track performance, diagnose issues, and optimize resource usage.
+% \end{itemize}
+% \subsubsection{service-registry}
+% \begin{itemize}
+%       \item The \textit{service-registry} component is built using Spring Cloud Eureka. It allows microservices to register themselves and discover other microservices in the system.
+%       \item It provides service discovery and registration capabilities, enabling microservices to locate and communicate with each other seamlessly.
+%       \item It is designed to be lightweight and efficient, ensuring minimal overhead and latency. It includes features like service registration, service discovery, and service health monitoring to optimize service interactions.
+% \end{itemize}
+% \subsubsection{authorisation-server}
+% \begin{itemize}
+%       \item The \textit{authorisation-server} component is built using Spring Authorization. It acts as the OAuth2 and OpenID Connect provider, handling user authentication, authorisation, and token generation.
+%       \item It is designed to be secure and compliant, following best practices for authentication and authorisation. It includes features like token management, token validation, and token revocation to protect user data and ensure service integrity.
+%       \item It is optimized for performance and scalability, supporting high throughput and low latency. It includes features like token caching, token expiration, and token renewal to improve response times and availability.
+%       \item It is designed to be flexible and extensible, supporting custom scopes, custom claims, and custom grant types. It includes configuration options, policy rules, and access controls to adapt to changing requirements and environments.
+%       \item It is built with a focus on interoperability and compatibility, supporting industry standards and protocols. It includes integration points for third-party services, identity providers, and security tools to facilitate seamless integration with other systems.
+%       \item It is designed to be resilient and fault-tolerant, supporting fault tolerance, error handling, and recovery mechanisms. It includes monitoring and alerting capabilities to detect and respond to security incidents.
+%       \item It is optimized for observability and monitoring, supporting metrics, logs, and tracing capabilities. It includes audit logs, access logs, and security logs to track user activity and diagnose issues.
+% \end{itemize}
+% \subsubsection{user-service}
+% \begin{itemize}
+%       \item The \textit{user-service} component is built using Spring Boot and Spring Cloud. It handles user registration, profile creation, and profile updates. It communicates with the \textit{db}-22222\_02 and \textit{db}-9000\_03-22222\_01 to provide user-related functionality.
+%       \item It has multiple mappings including the following
+%             \begin{lstlisting}
+%             GET /users
+%             PUT /users/{id}
+%             GET /users/{id}
+%             GET /users/{id}/exists
+%             PUT /users/{id}/avatar
+%       \end{lstlisting}
+%       \item \textbf{GET /users} endpoint retrieves all users.
+%       \item \textbf{PUT /users/\{id\}} endpoint updates a userS.
+%       \item \textbf{GET /users/\{id\}} endpoint retrieves a users by ID.
+%       \item \textbf{GET /users/\{id\}/exists} endpoint checks if a user exists.
+%       \item \textbf{PUT /users/\{id\}/avatar} endpoint updates a user's avatar.
+%       \item All the \textbf{GET} mappings can use the query parameter \textbf{view} to specify the one of predefined projections of the response.
+% \end{itemize}
+% \subsubsection{comment-service}
+% \begin{itemize}
+%       \item The \textit{comment-service} component is built using Spring Boot and Spring Cloud. It handles comment creation, retrieval, and deletion. It communicates with the \textit{db}-14641\_01.
+%       \item It has multiple mappings including the following
+%             \begin{lstlisting}
+%             GET /posts/{postId}/comments/count
+%             POST /posts/{postId}/comments
+%             GET /posts/{postId}/comments
+%             GET /comments/{id}
+%             GET /comments
+%       \end{lstlisting}
+%       \item \textbf{GET /posts/\{postId\}/comments/count} endpoint retrieves the count of comments on a post.
+%       \item \textbf{POST /posts/\{postId\}/comments} endpoint creates a comment on a post.
+%       \item \textbf{GET /posts/\{postId\}/comments} endpoint retrieves all comments on a post.
+%       \item \textbf{GET /comments/\{id\}} endpoint retrieves a comment by ID.
+%       \item \textbf{GET /comments} endpoint retrieves all comments.
+% \end{itemize}
+% \subsubsection{like-service}
+% \begin{itemize}
+%       \item The \textit{like-service} component is built using Spring Boot and Spring Cloud. It handles like creation, retrieval, and deletion. It communicates with the \textit{db}-333333\_01.
+%       \item It has multiple mappings including the following
+%             \begin{lstlisting}
+%             GET /posts/{postId}/likes/count
+%             GET /posts/{postId}/likes/{userId}
+%             DELETE /posts/{postId}/likes/{userId}
+%             GET /posts/{postId}/likes
+%             POST /posts/{postId}/likes
+%       \end{lstlisting}
+%       \item \textbf{GET /posts/\{postId\}/likes/count} endpoint retrieves the count of likes on a post.
+%       \item \textbf{GET /posts/\{postId\}/likes/\{userId\}} endpoint check whether the post is liked by the user.
+%       \item \textbf{DELETE /posts/\{postId\}/likes/\{userId\}} endpoint deletes a like by user ID on a post.
+%       \item \textbf{GET /posts/\{postId\}/likes} endpoint retrieves all likes on a post.
+%       \item \textbf{POST /posts/\{postId\}/likes} endpoint creates a like on a post.
+% \end{itemize}
+% \subsubsection{post-service}
+% \begin{itemize}
+%       \item The \textit{post-service} component is built using Spring Boot and Spring Cloud. It handles post creation, retrieval, and deletion. It communicates with the \textit{db}-11111\_01.
+%       \item It has multiple mappings including the following
+%             \begin{lstlisting}
+%             GET /posts/{id}
+%             GET /posts/{id}/exists
+%             GET /posts
+%             POST /users/{userId}/posts
+%             GET /users/{userId}/posts/feed
+%             GET /users/{userId}/posts/explore
+%             GET /users/{userId}/posts
+%       \end{lstlisting}
+%       \item \textbf{GET /posts/\{id\}} endpoint retrieves a post by ID.
+%       \item \textbf{GET /posts/\{id\}/exists} endpoint checks if a post exists.
+%       \item \textbf{GET /posts} endpoint retrieves all posts.
+%       \item \textbf{POST /users/\{userId\}/posts} endpoint creates a post by user ID.
+%       \item \textbf{GET /users/\{userId\}/posts/feed} endpoint retrieves the feed section posts for user ID.
+%       \item \textbf{GET /users/\{userId\}/posts/explore} endpoint retrieves the explore section posts for user ID.
+%       \item \textbf{GET /users/\{userId\}/posts} endpoint retrieves all posts by user ID.
+% \end{itemize}
+% \subsubsection{follow-service}
+% \begin{itemize}
+%       \item The \textit{follow-service} component is built using Spring Boot and Spring Cloud. It handles follow creation, retrieval, and deletion. It communicates with the \textit{db}-44444\_01.
+%       \item It has multiple mappings including the following
+%             \begin{lstlisting}
+%             GET /users/{userId}/followers
+%             GET /users/{userId}/following
+%             GET /users/{userId}/followe/{followId}
+%             POST /users/{userId}/followe/{followId}
+%             DELETE /users/{userId}/followe/{followId}
+%       \end{lstlisting}
+%       \item \textbf{GET /users/\{userId\}/followers} endpoint retrieves all followers of a user.
+%       \item \textbf{GET /users/\{userId\}/following} endpoint retrieves all users followed by a user.
+%       \item \textbf{GET /users/\{userId\}/followe/\{followId\}} endpoint checks if a user follows another user.
+%       \item \textbf{POST /users/\{userId\}/followe/\{followId\}} endpoint creates a follow relationship between two users.
+%       \item \textbf{DELETE /users/\{userId\}/followe/\{followId\}} endpoint deletes a follow relationship between two users.
+% \end{itemize}
+% \subsection{Database Architecture}
+% \subsubsection{db-9000\_01}
+% \begin{itemize}
+%       \item The \textit{db}-9000\_01 component is built using PostgreSQL. It stores information related to OpenID Connect, such as client IDs, client information, and authorisation information.
+%       \item It has the following tables
+%             \begin{lstlisting}
+%             oidc_client
+%             oidc_authorization
+%             oidc_authorization_consent
+%       \end{lstlisting}
+%       \item \textbf{oidc\_client} table stores client information, including client IDs, client secrets, and client metadata.
+%       \item \textbf{oidc\_authorization} table stores authorisation information, including authorisation codes, access tokens, and refresh tokens.
+%       \item \textbf{oidc\_authorization\_consent} table stores authorisation consent information, including user consent, authorities, and scopes.
+%       \item Utilizes a relational database model for structured data.
+%       \item Adheres to ACID properties to prioritise consistency.
+%       \item Employs SQL queries for data retrieval and manipulation.
+
+% \end{itemize}
+% \subsubsection{db-9000\_02}
+% \begin{itemize}
+%       \item The \textit{db}-9000\_02 component is built using PostgreSQL. It stores user authentication details, such as passwords, account status, and user roles.
+%       \item It has the following tables
+%             \begin{lstlisting}
+%             user_authentication_details
+%             authority
+%             user_authority
+%       \end{lstlisting}
+%       \item \textbf{user\_authentication\_details} table stores user authentication details, including passwords, account status, and user roles.
+%       \item \textbf{authority} table stores user roles, including role names and role IDs.
+%       \item \textbf{user\_authority} table serves many-to-many relationship between users and roles.
+%       \item Utilizes a relational database model for structured data.
+%       \item Adheres to ACID properties to prioritise consistency.
+%       \item Employs SQL queries for data retrieval and manipulation.
+% \end{itemize}
+% \subsubsection{db-9000\_03-22222\_01}
+% \begin{itemize}
+%       \item The \textit{db}-9000\_03-22222\_01 component is built using PostgreSQL. It is a shared database between the \textit{authorisation-server} and \textit{user-service} components. It stores user account details, such as usernames, emails, and account creation date.
+%       \item It have the following table
+%             \begin{lstlisting}
+%             user_account_details
+%       \end{lstlisting}
+%       \item \textbf{user\_account\_details} table stores user account details, including usernames, emails, and account creation date.
+%       \item Utilizes a relational database model for structured data.
+%       \item Adheres to ACID properties to prioritise consistency.
+%       \item Employs SQL queries for data retrieval and manipulation.
+% \end{itemize}
+% \subsubsection{db-22222\_02}
+% \begin{itemize}
+%       \item The \textit{db}-22222\_02 component is built using MongoDB. It stores user profiles created by users.
+%       \item It has the following collection
+%             \begin{lstlisting}
+%             users
+%       \end{lstlisting}
+%       \item \textbf{users} collection stores user profile information, including user IDs, display names, avatars, and bios.
+%       \item Utilizes a document-based database model for partially structured data and fast retrieval.
+%       \item Adheres to BASE properties to prioritise availability.
+%       \item Employs NoSQL queries for data retrieval and manipulation.
+% \end{itemize}
+% \subsubsection{db-14641\_01}
+% \begin{itemize}
+%       \item The \textit{db}-14641\_01 component is built using MongoDB. It stores comments created by users.
+%       \item It has the following collection
+%             \begin{lstlisting}
+%             comments
+%       \end{lstlisting}
+%       \item \textbf{comments} collection stores comments, including comment IDs, post IDs, user IDs, and comment text.
+%       \item Utilizes a document-based database model for fast retrieval.
+%       \item Adheres to BASE properties to prioritise availability.
+%       \item Employs NoSQL queries for data retrieval and manipulation.
+% \end{itemize}
+% \subsubsection{db-333333\_01}
+% \begin{itemize}
+%       \item The \textit{db}-333333\_01 component is built using Apache Cassandra. It stores likes created by users.
+%       \item It has the following table
+%             \begin{lstlisting}
+%             like
+%       \end{lstlisting}
+%       \item \textbf{like} table stores likes, including post IDs and user IDs.
+%       \item Utilizes a wide-columnar database model for high write throughput.
+%       \item Adheres to BASE properties to prioritise availability.
+%       \item Employs CQL queries for data retrieval and manipulation.
+% \end{itemize}
+% \subsubsection{db-11111\_01}
+% \begin{itemize}
+%       \item The \textit{db}-11111\_01 component is built using MongoDB. It stores posts created by users.
+%       \item It has the following collection
+%             \begin{lstlisting}
+%             posts
+%       \end{lstlisting}
+%       \item \textbf{posts} collection stores posts, including post IDs, user IDs, post text, and post media.
+%       \item Utilizes a document-based database model for partially structured data and fast retrieval.
+%       \item Adheres to BASE properties to prioritise availability.
+%       \item Employs NoSQL queries for data retrieval and manipulation.
+% \end{itemize}
+% \subsubsection{db-44444\_01}
+% \begin{itemize}
+%       \item The \textit{db}-44444\_01 component is built using Neo4j. It stores follow relationships between users.
+%       \item It has the following node type
+%             \begin{lstlisting}
+%             User
+%       \end{lstlisting}
+%       \item It has the following relationship
+%             \begin{lstlisting}
+%             FOLLOWS
+%       \end{lstlisting}
+%       \item \textbf{User} node stores user information, including user IDs.
+%       \item \textbf{FOLLOWS} relationship stores follow relationships between users, including user IDs and follow IDs.
+%       \item Utilizes a graph database model for maintaining relationships between data entities.
+%       \item Adheres to ACID properties to prioritise consistency.
+%       \item Employs Cypher queries for data retrieval and manipulation.
+% \end{itemize}
+% \newpage
+
+% \section{Implementation Challenges and Solutions}
+% \subsection{Lack of Like/Unlike Icon Animation}
+% \subsubsection*{Challenge}
+% There is no animation for like/unlike icon when the user clicks the like button.
+% \subsubsection*{Solution}
+% \begin{itemize}
+%       \item use React Component State for providing the animation-like look and feel.
+%       \item like-icon.tsx
+%             \begin{lstlisting}
+%       import { ReactComponent as Like0 } from '../../assets/like/0.svg';
+%       import { ReactComponent as Like1 } from '../../assets/like/1.svg';
+%             (*@$\vdots$@*)
+%       import { ReactComponent as Like21 } from '../../assets/like/21.svg';
+%       import { ReactComponent as Like22 } from '../../assets/like/22.svg';
+%       import { MouseEventHandler, useEffect, useState } from 'react';
+
+
+%       const svgs = [
+%             Like0,
+%             Like1,
+%             (*@$\vdots$@*)
+%             Like21,
+%             Like22,
+%       ];
+%       type LikeIconProps = {
+%       isLiked: boolean;
+%       onClick: MouseEventHandler<SVGElement>;
+%       };
+
+%       const LikeIcon = ({ isLiked, onClick }: LikeIconProps) => {
+%       const [phase, setPhase] = useState(isLiked ? svgs.length - 1 : 0);
+
+%       useEffect(() => {
+%       if (isLiked && phase < svgs.length - 1) {
+%             setPhase(phase + 1);
+%       }
+%       if (!isLiked && phase > 0) {
+%             setPhase(phase - 1);
+%       }
+%       }, [isLiked, phase]);
+
+%       const Icon = svgs[phase];
+%       return <Icon onClick={onClick} />;
+%       };
+
+%       export default LikeIcon;
+
+%       \end{lstlisting}
+% \end{itemize}
+% \subsection{Lack of Authorities that allow mutable username and email}
+% \subsubsection*{Challenge}
+% The authorisation services do not provide a way to update the username and email fields.
+% \subsubsection*{Solution}
+% \begin{itemize}
+%       \item Implemented the authorisation service using Spring Authorization Server.
+%       \item Created custom authorities that allow mutable username and email fields.
+%       \item Updated the user service to handle username and email updates.
+% \end{itemize}
+% \subsection{Mutating User Account Data}
+% \subsubsection*{Challenge}
+% The user account data was being mutated directly by the authorisation server.
+% \subsubsection*{Solution}
+% \begin{itemize}
+%       \item Use a shared database instance between the authorisation server and user service.
+%       \item Use the user service to manage user data.
+%       \item Use the user service to update user profile data in the shared database.
+%       \item Snippet from SharedDatabaseConfiguration.java
+%             \begin{lstlisting}
+% @Configuration
+% @PropertySource(value = "classpath:db.yaml", factory = YamlPropertySourceFactory.class)
+% @EnableJpaRepositories(
+%       basePackages = "io.github.singhalmradul.authorizationserver"
+%        + ".repositories.shared",
+%       entityManagerFactoryRef = "sharedEntityManagerFactory",
+%       transactionManagerRef = "sharedTransactionManager"
+% )
+% @AllArgsConstructor(onConstructor_ = @Autowired)
+% public class SharedDatabaseConfiguration {
+
+%       Environment env;
+
+%       @Bean
+%       @ConfigurationProperties(prefix = "shared")
+%       DataSource sharedDataSource() {
+%             return DataSourceBuilder.create().build();
+%       }
+
+%       @Bean
+%       LocalContainerEntityManagerFactoryBean sharedEntityManagerFactory() {
+%             var entityManager = new LocalContainerEntityManagerFactoryBean();
+%             entityManager.setDataSource(sharedDataSource());
+%             entityManager.setPackagesToScan(
+%                   "io.github.singhalmradul.authorizationserver"
+%                   + ".model.shared"
+%             );
+
+%             var vendorAdapter = new HibernateJpaVendorAdapter();
+%             entityManager.setJpaVendorAdapter(vendorAdapter);
+
+%             var properties = new Properties();
+%             properties.put("hibernate.hbm2ddl.auto", env.getProperty("spring.jpa.hibernate.ddl-auto"));
+%             properties.put("hibernate.dialect", env.getProperty("shared.dialect"));
+%             entityManager.setJpaProperties(properties);
+%             return entityManager;
+%       }
+
+%       @Bean
+%       JpaTransactionManager sharedTransactionManager() {
+%             var transactionManager = new JpaTransactionManager();
+%             transactionManager.setEntityManagerFactory(
+%                   sharedEntityManagerFactory().getObject()
+%             );
+
+%             return transactionManager;
+%       }
+% }
+%             \end{lstlisting}
+% \end{itemize}
+% \subsection{Expose Password Hashes to the User Service}
+% \subsubsection*{Challenge}
+% The authorisation server does not expose password hashes to the user service for user authentication.
+% \subsubsection*{Solution}
+% \begin{itemize}
+%       \item Storing password hashes in a separate database instance, that is only accessible to the authorisation server.
+%       \item Snippet from UserDatabaseConfiguration.java
+%             \begin{lstlisting}
+% @Configuration
+% @PropertySource(value = "classpath:db.yaml", factory = YamlPropertySourceFactory.class)
+% @EnableJpaRepositories(
+%       basePackages = "io.github.singhalmradul.authorizationserver"
+%             + ".repositories.user",
+%       entityManagerFactoryRef = "userEntityManagerFactory",
+%       transactionManagerRef = "userTransactionManager"
+% )
+% @AllArgsConstructor(onConstructor_ = @Autowired)
+% public class UserDatabaseConfiguration {
+
+%       Environment env;
+
+%       @Bean
+%       @ConfigurationProperties(prefix = "user")
+%       DataSource userDataSource() {
+%             return DataSourceBuilder.create().build();
+%       }
+
+%       @Bean
+%       LocalContainerEntityManagerFactoryBean userEntityManagerFactory() {
+%             var entityManager = new LocalContainerEntityManagerFactoryBean();
+%             entityManager.setDataSource(userDataSource());
+%             entityManager.setPackagesToScan(
+%                   "io.github.singhalmradul.authorizationserver"
+%                   + ".model.user"
+%             );
+
+%             var vendorAdapter = new HibernateJpaVendorAdapter();
+%             entityManager.setJpaVendorAdapter(vendorAdapter);
+
+%             var properties = new Properties();
+%             properties.put("hibernate.hbm2ddl.auto", env.getProperty("spring.jpa.hibernate.ddl-auto"));
+%             properties.put("hibernate.dialect", env.getProperty("user.dialect"));
+%             entityManager.setJpaProperties(properties);
+%             return entityManager;
+%       }
+
+%       @Bean
+%       JpaTransactionManager userTransactionManager() {
+%             var transactionManager = new JpaTransactionManager();
+%             transactionManager.setEntityManagerFactory(
+%                   userEntityManagerFactory().getObject()
+%             );
+
+%             return transactionManager;
+%       }
+% }
+%             \end{lstlisting}
+% \end{itemize}
+% \subsection{Inconsistent User Profile Data}
+% \subsubsection*{Challenge}
+% The user profile data was inconsistent across microservices, with different data stored in different databases.
+% \subsubsection*{Solution}
+% \begin{itemize}
+%       \item Checking the user profile data consistency across microservices.
+%       \item Snippet from UserServiceImpl.java
+%             \begin{lstlisting}
+% private User saveIfNotExists(@NonNull UserAccountDetails accountDetails) {
+%       return userRepository
+%             .findById(accountDetails.getUserId())
+%             .orElseGet(() ->
+%                   userRepository.save(
+%                         User.builder()
+%                               .id(accountDetails.getUserId())
+%                               .displayName(accountDetails.getUsername())
+%                               .build()
+%                   )
+%            );
+% }
+%       \end{lstlisting}
+%       \item Snippet from UserServiceImpl.java
+%             \begin{lstlisting}
+% @Override
+% @Transactional
+% public UserView updateUser(UUID id, CompleteUser completeUser) {
+
+%       var accountDetails = accountDetailsService.getById(completeUser.id());
+%       var user = userRepository.findById(completeUser.id()).orElseThrow();
+
+%       accountDetails.setEmail(completeUser.email());
+%       accountDetails.setUsername(completeUser.username());
+
+%       user.setDisplayName(completeUser.displayName());
+%       user.setBio(completeUser.bio());
+
+%       return mapToView(
+%             accountDetailsService.save(accountDetails),
+%             userRepository.save(user),
+%             null,
+%             CompleteUser.class
+%       );
+% }
+%             \end{lstlisting}
+% \end{itemize}
+% \subsection{Casting User into its Projections}
+% \subsubsection*{Challenge}
+% Casting User into its projections was not possible due to Incompatible types.
+% \subsubsection*{Solution}
+% \begin{itemize}
+%       \item Using Generics and Runtime Class Loading to cast User into its projections.
+%       \item Snippet from UserServiceImpl.java
+%             \begin{lstlisting}
+% private <T extends UserView> T mapToView(
+%       UserAccountDetails accountDetails,
+%       User user,
+%       UUID requestUserId,
+%       Class<T> type
+% ) {
+%       try {
+%             if (type.isAssignableFrom(MinimalUser.class)) {
+%                   return type
+%                         .getConstructor(UserAccountDetails.class, User.class)
+%                         .newInstance(accountDetails, user);
+%       }
+%       return type
+%             .getConstructor(UserAccountDetails.class, User.class, boolean.class)
+%             .newInstance(
+%                   accountDetails,
+%                   user,
+%                   // in case of null requestUserId
+%                   // or if requestUserId is same as user's id
+%                   // no need to invoke followServiceProxy
+%                   requestUserId == null || user.getId().equals(requestUserId)
+%                         ? false
+%                         : followServiceProxy.isUserFollowing(
+%                         requestUserId,
+%                         user.getId()
+%                   )
+%             );
+%       } catch (
+%             InstantiationException
+%             | IllegalAccessException
+%             | IllegalArgumentException
+%             | InvocationTargetException
+%             | NoSuchMethodException
+%             | SecurityException e
+%       ) {
+%             throw new RuntimeException(e);
+%       }
+% }
+%             \end{lstlisting}
+% \end{itemize}
+% \subsection{Inconsistent Post Feed}
+% \subsubsection*{Challenge}
+% The post feed is inconsistent, with posts from followed users not showing up in the feed.
+% \subsubsection*{Solution}
+% \begin{itemize}
+%       \item Use a graph database to store follow relationships between users.
+%       \item Use a query to retrieve posts from followed users and display them in the feed.
+%       \item Use a caching mechanism to store posts from followed users and update the feed with new posts.
+%       \item Use a background job to fetch posts from followed users and update the feed periodically.
+% \end{itemize}
+% \newpage
+
+% \printindex
