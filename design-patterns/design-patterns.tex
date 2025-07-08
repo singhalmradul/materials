@@ -1,0 +1,208 @@
+\documentclass{article}
+\usepackage{geometry}[a4paper]
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{titlesec}
+\usepackage[hidelinks]{hyperref}
+\usepackage{makeidx}
+\usepackage{color}
+\usepackage{mathdots}
+\usepackage{sans}
+\usepackage{minted}
+\usepackage{xcolor}
+
+\setminted{
+  fontsize=\small,
+  frame=lines,
+  linenos=true,
+  tabsize=2
+}
+
+% \linespread{1.1}
+
+\makeindex
+
+% Centered and bold section headings
+\titleformat{\section}[block]{\normalfont\Large\bfseries\filcenter}{}{0em}{}
+\titleformat{\subsection}[block]{\normalfont\large\bfseries}{}{0em}{}
+\titleformat{\subsubsection}[block]{\normalfont\normalsize\bfseries}{}{0em}{}
+
+\raggedright
+\title{Design Patterns}
+\author{Mradul Singhal}
+% \date{\today}
+
+\begin{document}
+
+\maketitle
+\newpage
+
+\tableofcontents
+\newpage
+
+\section{Introduction}
+Design patterns are \textbf{well-established resolutions for repetitive challenges in software design}. They are programming language-independent strategies for solving a common problem. Design patterns are templates for solving a common problem in programming. They are general solutions to problems faced during software development. By using design patterns, we can make our code more flexible, reusable, and maintainable.
+\subsection{Types of Design Patterns}
+\subsubsection{Creational Design Patterns}
+Creational design patterns provide solutions to instantiate an Object in the best possible way for specific situations.
+\subsubsection{Structural Design Patterns}
+Structural design patterns provide different ways to create a Class structure (for example, using inheritance and composition to create a large Object from small Objects).
+\subsubsection{Behavioral Design Patters}
+Behavioral patterns provide a solution for better interaction between objects and how to provide loose-coupling and flexibility to extend easily.
+\newpage
+
+\section{Creational Design Patterns}
+\subsection{Singleton Pattern}
+\begin{itemize}
+    \item The \textbf{Singleton design pattern} is a \textbf{creational design pattern} that ensures a class has only one instance and provides a global access point to that instance.
+    \item This pattern is particularly useful in scenarios where a single object is needed to coordinate actions across the system, such as managing database connections or configuration settings.
+    \item It restricts the instantiation of a class to a single instance. By doing so, it helps maintain a controlled access point to the instance throughout the application's lifecycle.
+    \item \textbf{Example:}
+          \begin{minted}{java}
+class Singleton {
+
+  private static Singleton instance;
+
+  private Singleton() {}
+
+  public static Singleton getInstance() {
+      if (instance == null) {
+          instance = new Singleton();
+      }
+      return instance;
+  }
+}
+          \end{minted}
+    \item The lifetime of a singleton object is equal to the runtime of the application. The object may be configured to be lazily loaded.
+    \item \textbf{Uses:}
+    \begin{itemize}
+      \item If we need only one instance of a class throughout the application.
+      \item If we need to use to inject a single instance of class \textit{a lot of} times as a dependency.
+    \end{itemize}
+    \item \textbf{Pros:}
+          \begin{itemize}
+              \item Provides a single point of access to a shared resource.
+              \item Reduces memory footprint when the object is reused across multiple components.
+          \end{itemize}
+    \item \textbf{Cons:}
+          \begin{itemize}
+              \item May cause global state issues, which contribute to hiding actual dependencies.
+              \item May result in non-deterministic behavior if the attributes of the singleton are mutable. \\
+                    \textbf{Example:}
+                    \begin{minted}{java}
+class Singleton {
+
+  int x;
+
+  ...
+}
+          \end{minted}
+                    \begin{minted}{java}
+class A {
+
+  public static void main(String[] args) {
+
+      var singleton = Singleton.getInstance();
+      System.out.println(singleton.x++);
+  }
+}
+          \end{minted}
+                    \begin{minted}{java}
+class B {
+
+  public static void main(String[] args) {
+
+      var singleton = Singleton.getInstance();
+      System.out.println(singleton.x--);
+  }
+}
+          \end{minted}
+              \item It persists throughout the lifecycle of the application, even when it's not being used.
+              \item It is difficult to unit test and extend since there is no public constructor, and the only way to instantiate it is through a static method.
+          \end{itemize}
+    \item \textbf{Tips:}
+          \begin{itemize}
+              \item Avoid using mutable state inside a singleton unless absolutely necessary.
+              \item If the singleton is resource-heavy and not always needed, implement lazy loading to delay instantiation.
+              \item Ensure thread safety in multi-threaded environments by using synchronization or other concurrency-safe mechanisms.
+              \item Use dependency injection frameworks (like Spring) to manage singleton scope more cleanly and transparently.
+              \item If we do use Singletons, try to use dependency injection instead of calling \lstinline|getInstance()| from the constructor.
+                    \begin{minted}{java}
+public MyConstructor(Singleton singleton) {
+    this.singleton = singleton;
+}
+        \end{minted}
+                    instead of
+                    \begin{minted}{java}
+public MyConstructor() {
+    this.singleton = Singleton.getInstance();
+}
+        \end{minted}
+                    At the very least, using dependency injection allows us to do some unit testing of the class by adhering to good encapsulation principles.
+          \end{itemize}
+\end{itemize}
+\subsection{Factory Pattern}
+\begin{itemize}
+    \item The \textbf{Factory design pattern} is a \textbf{creational design pattern} that provides an interface for creating objects in a superclass, but allows subclasses to alter the type of objects that will be created.
+    \item It helps in promoting loose coupling by eliminating the need to bind application-specific classes into the code.
+    \item This pattern delegates the responsibility of instantiating a class to its subclasses or factory methods.
+    \item It is particularly useful when the exact type of the object is not known until runtime or when the object creation involves complex logic.
+    \item \textbf{Example:}
+          \begin{minted}{scala}
+trait Shape:
+  def draw(): Unit
+          \end{minted}
+          \begin{minted}{scala}
+class Circle extends Shape:
+  def draw(): Unit =
+      println("Drawing a Circle")
+          \end{minted}
+          \begin{minted}{scala}
+class Rectangle extends Shape:
+  def draw(): Unit =
+      println("Drawing a Rectangle")
+          \end{minted}
+          \begin{minted}{scala}
+class ShapeFactory:
+  def createShape(shapeType: String): Option[Shape] = shapeType match
+      case "CIRCLE" => Some(Circle())
+      case "RECTANGLE" => Some(Rectangle())
+      case _ => None
+          \end{minted}
+          \begin{minted}{scala}
+  @main def main(): Unit =
+      val factory = new ShapeFactory()
+
+      val shape1 = factory.createShape("CIRCLE")
+      shape1.foreach(_.draw())
+
+      val shape2 = factory.createShape("RECTANGLE")
+      shape2.foreach(_.draw())
+          \end{minted}
+    \item The Factory pattern promotes the use of interfaces or abstract classes and defers the instantiation to child classes or factory methods.
+    \item \textbf{Uses:}
+    \begin{itemize}
+      \item If we have to know more than the product to construct \(A\), \(B\) or \(C\), and we can't have direct access to that knowledge, then it is useful. Then the factory can act as a knowledge center for producing needed objects.
+      \item If objects that needs to be instantiated need a reference to some object \(X\), which the factory can provide, but our code in the place where we want to construct \(A\), \(B\) or \(C\) can't or shouldn't have access to \(X\).
+      \item If the case is, when we have \(X\) we create \(A\) and \(B\) but if we have \(Y\) type then we create \(C\).
+      \item Also useful when some objects need a lot of dependencies to create. Hunting for those dependencies in a place where they should not be accessible might be problematic.
+    \end{itemize}
+    \item \textbf{Pros:}
+    \begin{itemize}
+          \item Promotes \textit{loose coupling} and enhances code maintainability.
+          \item Makes the code more scalable as new product types can be added with minimal changes.
+          \item Encapsulates object creation logic in one place.
+    \end{itemize}
+    \item \textbf{Cons:}
+    \begin{itemize}
+          \item May introduce unnecessary complexity when decoupling is not needed and if the number of products is small or object creation is simple.
+    \end{itemize}
+    \item \textbf{Tips:}
+    \begin{itemize}
+          \item Keep the factory class focused on object creation only — don't mix with unrelated logic.
+          \item Avoid using factory pattern when object creation is not complicated enough, or not many variants of object.
+    \end{itemize}
+\end{itemize}
+\newpage
+\printindex
+\end{document}

@@ -1,0 +1,12 @@
+sequenceDiagram
+    participant Thread1
+    participant SharedData
+    participant Thread2
+
+    Thread1->>SharedData: Read (value = 5)
+    Thread2->>SharedData: Read (value = 5)
+    Thread1->>Thread1: Compute value + 1
+    Thread2->>Thread2: Compute value + 1
+    Thread1->>SharedData: Write (value = 6)
+    Thread2->>SharedData: Write (value = 6)
+    Note over SharedData: Final value = 6 (Expected: 7)

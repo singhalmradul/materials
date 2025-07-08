@@ -1,0 +1,92 @@
+\documentclass{article}
+\usepackage{geometry}[a4paper]
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{titlesec}
+\usepackage[hidelinks]{hyperref}
+\usepackage{makeidx}
+\usepackage{color}
+\usepackage{mathdots}
+\usepackage{sans}
+\usepackage{minted}
+\usepackage{xcolor}
+
+\setminted{
+  fontsize=\small,
+  frame=lines,
+  linenos=true,
+  tabsize=2
+}
+% \linespread{1.1}
+
+\makeindex
+
+% Centered and bold section headings
+\titleformat{\section}[block]{\normalfont\Large\bfseries\filcenter}{}{0em}{}
+\titleformat{\subsection}[block]{\normalfont\large\bfseries}{}{0em}{}
+\titleformat{\subsubsection}[block]{\normalfont\normalsize\bfseries}{}{0em}{}
+
+\raggedright
+\title{Object Oriented Programming}
+\author{Mradul Singhal}
+% \date{\today}
+
+\begin{document}
+
+\maketitle
+\newpage
+
+\tableofcontents
+\newpage
+
+\section{Introduction}
+Object-Oriented Programming (OOP) organizes software design around data, or objects, rather than functions and logic. Here are the fundamental concepts of OOP:
+\begin{itemize}
+    \item \textbf{Classes:} Templates for creating objects, defining their structure and behavior.
+    \item \textbf{Objects:} Instances of classes that represent specific elements with attributes and behaviors.
+    \item \textbf{Encapsulation:} Hiding the internal state of an object and requiring all interaction to be performed through an object's methods.
+    \item \textbf{Abstraction:} Exposing only the necessary and relevant parts of an object to the outside world.
+    \item \textbf{Inheritance:} A mechanism for one class to inherit the properties and behavior of another class.
+    \item \textbf{Polymorphism:} The ability to present the same interface for differing underlying data types.
+\end{itemize}
+\newpage
+
+\section{Association, Aggregation \& Composition}
+\subsection{Association}
+\begin{itemize}
+    \item When an object have a relationship with another object
+    \item When an object uses a reference of another object, whether it may be \textit{Aggregation} or \textit{Composition}
+    \item \textbf{Example:}
+          \begin{minted}{scala}
+class Foo:
+  var bar: Bar = uninitialized
+          \end{minted}
+          Foo uses Bar
+    \item It may be \textit{one-to-one, one-to-many, many-to-one} or \textit{many-to-many} relationship
+\end{itemize}
+\subsection{Aggregation}
+\begin{itemize}
+    \item  A relationship where the child can exist independently of the parent.
+    \item When an object is injected into another object
+    \item \textbf{Example:}
+          \begin{minted}{scala}
+class Foo(bar: Bar)
+          \end{minted}
+          When \lstinline|Foo| dies, \lstinline|Bar| may live on
+          \item It may be \textit{one-to-one, one-to-many, many-to-one} or \textit{many-to-many} relationship
+\end{itemize}
+\subsection{Composition}
+\begin{itemize}
+    \item An object owns another object and is responsible for that object's lifetime.
+    \item When an object is instantiated within another object
+    \item \textbf{Example:}
+          \begin{minted}{scala}
+class Foo:
+  val bar = Bar()
+          \end{minted}
+          When \lstinline|Foo| dies, so does \lstinline|Bar|
+          \item It may be \textit{one-to-one} or \textit{one-to-many} relationship
+\end{itemize}
+\newpage
+\printindex
+\end{document}
