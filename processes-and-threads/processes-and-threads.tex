@@ -23,7 +23,7 @@
 \makeindex
 
 % Centered and bold section headings
-\titleformat{\section}[block]{\normalfont\Large\bfseries\filcenter}{}{0em}{}
+\titleformat{\section}[block]{\normalfont\Large\bfseries}{}{0em}{}
 \titleformat{\subsection}[block]{\normalfont\large\bfseries}{}{0em}{}
 \titleformat{\subsubsection}[block]{\normalfont\normalsize\bfseries}{}{0em}{}
 
@@ -53,17 +53,17 @@
 % \newpage
 \section{Process and Thread}
 \subsection{Process}
-Each process provides the resources needed to execute a program. A process has a virtual address space, executable code, open handles to system objects, a security context, a unique process identifier, environment variables, a priority class, minimum and maximum working set sizes, and at least one thread of execution. Each process is started with a single thread, often called the primary thread, but can create additional threads from any of its threads.
+Each process provides the resources needed to execute a program. A process has a virtual address space, executable code, open handles to system objects, a security context, a unique process identifier, environment variables, a priority class, minimum and maximum working set sizes, and at least one thread of execution. Each process is started with a single thread, often referred to as the primary thread, but can create additional threads from any of its threads.
 
 \subsection{Thread}
-A thread is an entity within a process that can be scheduled for execution. All threads of a process share its virtual address space and system resources. In addition, each thread maintains exception handlers, a scheduling priority, thread local storage, a unique thread identifier, and a set of structures the system will use to save the thread context until it is scheduled. The thread context includes the thread's set of machine registers, the kernel stack, a thread environment block, and a user stack in the address space of the thread's process.
+A thread is an entity within a process that can be scheduled for execution. All threads of a process share its virtual address space and system resources. In addition, each thread maintains exception handlers, a scheduling priority, thread-local storage, a unique thread identifier, and a set of structures that the system uses to save the thread context until it is scheduled. The thread context includes the thread's set of machine registers, the kernel stack, a thread environment block, and a user stack in the address space of the thread's process.
 
 \section{Memory Comparision}
 \subsection{Stack Memory}
 \begin{itemize}
-  \item \textbf{Stack memory is allocated per thread}. So when a thread is created (whether by an OS or a runtime like the JVM), it gets its own stack.
-  \item A \textbf{core executes a thread}. If that thread is paused and another is scheduled, the stack of the previous thread is saved, and the new one uses its own stack.
-  \item In a \textbf{multi-core CPU}, multiple threads (and hence multiple stacks) can be active in parallel—but again, stacks live in system memory (RAM), not inside the CPU cores.
+  \item \textbf{Stack memory is allocated per thread}. So when a thread is created (whether by an OS or a runtime like the JVM), it gets its stack.
+  \item A \textbf{core executes a thread}. If that thread is paused and another is scheduled, the stack of the previous thread is saved, and the new one uses its stack.
+  \item In a multi-core CPU, multiple threads (and hence multiple stacks) can be active in parallel—but again, stacks live in system memory (RAM), not inside the CPU cores.
 \end{itemize}
 \subsection{Shared Memory between Threads}
 \begin{itemize}
@@ -71,74 +71,70 @@ A thread is an entity within a process that can be scheduled for execution. All 
   \item This is what makes multithreading powerful—but also risky, if not synchronized carefully.
   \item Shared access = potential for \textbf{race conditions}, \textbf{memory visibility issues}, or \textbf{data corruption}.
   \begin{itemize}
-    \item \textbf{Race Conditions:} Occur when multiple threads access shared data and try to change it at the same time. If the access is not synchronized, the final state of the data may depend on the timing of the threads' execution.
+    \item \textbf{Race Conditions:} Occur \textit{when multiple threads access shared data and try to change it at the same time}. If the access is not synchronised, the final state of the data may depend on the timing of the threads' execution.
     \begin{figure}[h]
       \centering
       \includegraphics[width=0.8\textwidth]{diagrams/race-condition.png}
       \caption{Race Condition Example}\label{fig:race_condition}
     \end{figure}
-    \item \textbf{Memory Visibility Issues:} Happen when one thread updates a variable but another thread does not see the updated value. This can occur due to compiler optimizations or CPU caching.
-    \item \textbf{Data Corruption:} Can occur when multiple threads modify shared data without proper synchronization, leading to inconsistent or invalid data states.
+    \item \textbf{Memory Visibility Issues:} Happen when one thread updates a variable, but another thread does not see the updated value. This can occur \textit{due to compiler optimisations or CPU caching}.
+    \item \textbf{Data Corruption:} Can occur \textit{when multiple threads modify shared data without proper synchronisation}, leading to inconsistent or invalid data states.
   \end{itemize}
 \end{itemize}
 
 \section{Programming Paradigms}
-\subsection{Syncronous Programming}
+\subsection{Synchronous Programming}
 \begin{itemize}
   \item In synchronous programming, tasks are \textbf{executed sequentially}, meaning each task must complete before the next one begins.
-  \item This can lead to \textbf{blocking behavior}, where a \textbf{thread waits for a task to complete}.
+  \item This can lead to \textbf{blocking behaviour}, where a \textbf{thread waits for a task to complete}.
   \item The main thread delegates the job, then sits there doing nothing but just waiting for a result, most likely busy polling ``is it done''. AKA the main thread is blocked.
 \end{itemize}
 \subsection{Asynchronous Programming}
 \begin{itemize}
   \item In asynchronous programming, \textbf{tasks can be initiated and then run in the background}, allowing the \textbf{main thread to continue executing} other tasks without waiting for the background task to complete.
   \item This can lead to \textbf{more efficient use of resources}, especially in I/O-bound applications.
-  \item The main thread can delegate a job to be done elsewhere, and it can do other stuff whilst waiting for the job's result to come in. Often main thread is notified of the result in form of outer world calling a callback function provided by the main thread.
-\end{itemize}
-\subsection{Reactive Programming}
-\begin{itemize}
-  \item Reactive programming is a programming paradigm oriented around data flows and the propagation of change.
-  \item Reactive programming is often used in conjunction with asynchronous programming to handle streams of data and events.
-  \item The main thread delegates a subscription job somewhere (although it doesn't have to be other threads, it could be itself) requesting ``when this event occurs, notify me by calling this callback function so that I can REACT to that event. By the way, that callback function I just gave you is technically my REACTION''.
+  \item The main thread can delegate a job to be done elsewhere, and it can do other stuff whilst waiting for the job's result to come in. Often main thread is notified of the result in the form of the outer world calling a callback function provided by the main thread.
 \end{itemize}
 \subsection{Multithreading}
 \begin{itemize}
   \item Multithreading allows multiple threads to exist within the context of a single process, sharing resources but executing independently.
   \item Threads can be scheduled to run on different cores or be interleaved on a single core, leading to more efficient use of CPU resources.
   \item The main thread delegates the job to be done by creating a new thread to handle a specific task, which can run concurrently with the main thread and other threads in the process.
-  \item \textbf{Benefits:}
+  \item \textbf{Benefits}
   \begin{itemize}
     \item Improved performance through parallelism (multi-core).
-    \item Better resource utilization, especially on multi-core systems.
+    \item Better resource utilisation, especially on multi-core systems.
     \item Enhanced responsiveness in applications (e.g., UI threads can remain responsive while background tasks are processed for single-core systems).
   \end{itemize}
-  \item \textbf{Challenges:}
+  \item \textbf{Challenges}
   \begin{itemize}
     \item Increased complexity in program design and implementation.
     \item Difficulties in debugging and testing multithreaded applications.
-    \item Potential for subtle bugs related to timing and synchronization.
+    \item Potential for subtle bugs related to timing and synchronisation.
   \end{itemize}
   \item \textbf{Optimal number of threads per core}
-If your threads don't do I/O, synchronization, etc., and there's nothing else running, 1 thread per core will get you the best performance. However that very likely not the case. Adding more threads usually helps, but after some point, they cause some performance degradation.
   \begin{itemize}
-    \item \textbf{I/O-bound tasks:} If your threads are waiting for I/O operations (like network requests, disk reads/writes), you can have more threads than cores. A common rule of thumb is to have 2-3 times the number of threads as cores.
-    \item \textbf{CPU-bound tasks:} If your threads are performing heavy computations, having more threads than cores can lead to context switching overhead and performance degradation. In this case, 1 thread per core is often optimal.
-    \item \textbf{Mixed workloads:} For applications with a mix of I/O-bound and CPU-bound tasks, you may need to experiment to find the optimal number of threads.
+    \item If your threads don't do I/O, synchronisation, etc., and there's nothing else running, 1 thread per core will get you the best performance. However that very likely not the case. Adding more threads usually helps, but after some point, they cause some performance degradation.
+    \begin{itemize}
+      \item \textbf{I/O-bound tasks:} If your threads are waiting for I/O operations (like network requests, disk reads/writes), you can have more threads than cores. A common rule of thumb is to have 2--3 times the number of threads as cores.
+      \item \textbf{CPU-bound tasks:} If your threads are performing heavy computations, having more threads than cores can lead to context switching overhead and performance degradation. In this case, 1 thread per core is often optimal.
+      \item \textbf{Mixed workloads:} For applications with a mix of I/O-bound and CPU-bound tasks, you may need to experiment to find the optimal number of threads.
+    \end{itemize}
   \end{itemize}
 \end{itemize}
 
 \section{Concurrency and Parallelism}
 \subsection{Concurrency}
 \begin{itemize}
-  \item A condition that exists when at least two threads are making progress. A more generalized form of parallelism that can include time-slicing as a form of virtual parallelism.
-  \item It can occur on a single-core CPU through time-slicing, where the CPU switches between threads rapidly, giving the illusion of parallel execution.
-  \item Concurrency in case of multiple cores can be achieved through true parallel execution, where multiple threads run simultaneously on different cores.
+  \item A condition that exists when \textbf{at least two threads are making progress}. A more generalised form of parallelism that can include time-slicing as a form of virtual parallelism.
+  \item It \textbf{can also occur on a single-core CPU through time-slicing}, where the CPU switches between threads rapidly, giving the illusion of parallel execution.
+  \item Concurrency in the case of multiple cores can be achieved through true parallel execution, where multiple threads run simultaneously on different cores.
 \end{itemize}
 \subsection{Parallelism}
 \begin{itemize}
-  \item A condition that arises when at least two threads are executing simultaneously.
-  \item It requires multiple cores or processors to achieve true parallel execution.
-  \item Parallelism is a subset of concurrency, where tasks are executed simultaneously rather than interleaved.
+  \item A condition that arises when \textbf{at least two threads are executing simultaneously}.
+  \item It \textbf{requires multiple cores} or processors to achieve true parallel execution.
+  \item \textbf{Parallelism is a subset of concurrency}, where tasks are executed simultaneously rather than interleaved.
 \end{itemize}
 \newpage
 \printindex
